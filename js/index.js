@@ -5,18 +5,18 @@ $(function(){
     ani.stop(true,true).css({
       width:40,
       opacity:0,
-      backgroundColor:'#0d6631'
+      backgroundColor:'pink'
     });
     ani.animate({opacity:1},20);
   })
   $(document).ajaxSend(function(){
-    ani.animate({width:$(window).outerWidth(true)*0.9},200);
+    ani.animate({width:$(window).outerWidth(true)*0.9},500);
   })
   $(document).ajaxSuccess(function(){
-    ani.finish().css('backgroundColor','#0575e6').animate({width:$(window).outerWidth(true)},120);
+    ani.finish().css('backgroundColor','green').animate({width:$(window).outerWidth(true)},120);
   })
   $(document).ajaxError(function(){
-    ani.finish().css('backgroundColor','#e92d1b').animate({width:0},120);
+    ani.finish().css('backgroundColor','red').animate({width:$(window).outerWidth(true)},120);
   });
   $(document).ajaxComplete(function(){
     ani.animate({opacity:0},120);
@@ -45,6 +45,9 @@ $(function(){
         return '<li class="'+(v.isDone==='1'?'completed':'')+'" data-id="'+v.id+'"> <div class="view"> <input type="checkbox" '+(v.isDone==='1'?'checked':'')+' class="toggle"> <label>'+v.content+'</label> <button class="destroy"></button> </div> <input type="text" class="edit" value="'+v.content+'"> </li>';
       });
     })
+        var nubx=$('#todo-count')
+        var lis=$('#todo-list li').length
+        $('#todo-count strong').text(lis)
   }
 
   var addTodo = function (e) {
@@ -118,5 +121,10 @@ $(function(){
     });
   };
   $('#todo-list').on('change','.edit',updateTodo);
+
+
+  $('#filters').on('click','li',function(){
+    var num=$('#todo-list li').find('.toggle');
+  })
 
 });
